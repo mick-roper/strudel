@@ -10,6 +10,8 @@ import (
 )
 
 func main() {
+	log.Println("starting client...")
+
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 
@@ -57,7 +59,7 @@ func main() {
 		case <-interrupt:
 			log.Println("interrupt received")
 
-			err := c.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalMessage, ""))
+			err := c.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
 
 			if err != nil {
 				log.Println("write close:", err)
