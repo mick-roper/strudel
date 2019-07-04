@@ -33,5 +33,5 @@ clean-client:
 install-client:
 	echo "nothing to install"
 
-test-server:
+test-client:
 	echo "no tests"
