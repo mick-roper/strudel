@@ -1,1 +1,3 @@
+github.com/gorilla/websocket v1.4.0 h1:WDFjx/TMzVgy9VdMMQi2K2Emtwi2QcUQsztZ/zLaH/Q=
+github.com/gorilla/websocket v1.4.0/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoAMk2YaljkQ=
 github.com/mick-roper/strudel v0.0.0-20190704071253-b719a676439f h1:D2f1AEQjCCilZaitLSKZ5XHdXrfOpp+5TOH5vp0EjSM=
