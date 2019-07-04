@@ -13,6 +13,7 @@ import (
 var server = flag.String("server", "ws://localhost:8080", "the server address")
 
 func main() {
+	flag.Parse()
 	log.Println("client: connecting to", *server)
 
 	interrupt := make(chan os.Signal, 1)
