@@ -31,7 +31,7 @@ clean-client:
 	rm -rf client/bin
 
 install-client:
-	echo "nothing to install"
+	cd client/src go get
 
 test-client:
 	echo "no tests"
