@@ -28,7 +28,7 @@ func echo(w http.ResponseWriter, r *http.Request) {
 	}
 	defer c.Close()
 
-	log.Panicln("upgrade: connection upgraded")
+	log.Println("upgrade: connection upgraded")
 
 	for {
 		mt, message, err := c.ReadMessage()
