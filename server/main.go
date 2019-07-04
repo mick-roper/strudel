@@ -1,11 +1,14 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"net/http"
 
 	"github.com/gorilla/websocket"
 )
+
+var addr = flag.String("addr", ":8080", "the server address")
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
@@ -44,8 +47,10 @@ func echo(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	log.Print("starting server...")
+	flag.Parse()
+
+	log.Println("server: starting on", *addr)
 
 	http.HandleFunc("/", echo)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(*addr, nil))
 }

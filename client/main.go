@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"log"
 	"os"
 	"os/signal"
@@ -9,13 +10,15 @@ import (
 	"github.com/gorilla/websocket"
 )
 
+var addr = flag.String("addr", ":8080", "the server address")
+
 func main() {
-	log.Println("starting client...")
+	log.Println("client: connecting to", *addr)
 
 	interrupt := make(chan os.Signal, 1)
 	signal.Notify(interrupt, os.Interrupt)
 
-	c, _, err := websocket.DefaultDialer.Dial("", nil)
+	c, _, err := websocket.DefaultDialer.Dial(*addr, nil)
 
 	if err != nil {
 		log.Fatal(err)
