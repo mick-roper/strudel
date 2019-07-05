@@ -12,7 +12,7 @@ test: test-server test-client
 
 # server
 build-server:
-	cd server && go build -o ../bin/strudel-server main.go
+	cd server/app && go build -o ../../bin/strudel-server server.go
 
 clean-server:
 	rm -rf server/bin
@@ -25,7 +25,7 @@ test-server:
 
 # client
 build-client:
-	cd client/app && go build -o ../bin/strudel-client main.go
+	cd client/app && go build -o ../../bin/strudel-client client.go
 
 clean-client:
 	rm -rf client/bin
