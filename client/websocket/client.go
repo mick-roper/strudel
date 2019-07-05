@@ -8,7 +8,7 @@ import (
 
 // Client used to manage websocket connections
 type Client struct {
-	conn websocket.Conn
+	conn *websocket.Conn
 }
 
 // NewClient creates a new client
@@ -17,7 +17,7 @@ func NewClient(url string) (*Client, error) {
 		return nil, errors.New("url must be provided")
 	}
 
-	conn, _, err := websocket.DefaultDialler.Dial(url, nil)
+	conn, _, err := websocket.DefaultDialer.Dial(url, nil)
 
 	if err != nil {
 		return nil, err
