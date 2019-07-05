@@ -18,7 +18,7 @@ clean-server:
 	rm -rf server/bin
 
 install-server:
-	echo "nothing to instal"
+	cd server && go mod vendor
 
 test-server:
 	echo "no tests"
