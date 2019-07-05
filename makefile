@@ -12,7 +12,7 @@ test: test-server test-client
 
 # server
 build-server:
-	cd server && go build -o bin/strudel-server main.go
+	cd server && go build -o ../bin/strudel-server main.go
 
 clean-server:
 	rm -rf server/bin
@@ -25,13 +25,13 @@ test-server:
 
 # client
 build-client:
-	cd client && go build -o bin/strudel-client main.go
+	cd client/app && go build -o ../bin/strudel-client main.go
 
 clean-client:
 	rm -rf client/bin
 
 install-client:
-	cd client && go mod vendor
+	cd client/app && go mod vendor
 
 test-client:
 	echo "no tests"
