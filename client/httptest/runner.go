@@ -1,6 +1,12 @@
 package httptest
 
-import "errors"
+import (
+	"bytes"
+	"errors"
+	"io/ioutil"
+	"net/http"
+	"time"
+)
 
 // Request that describes a test
 type Request struct {
@@ -21,7 +27,7 @@ type Response struct {
 	StatusCode    int
 	StatusMessage string
 	Data          string
-	ElapsedMs     float64
+	ElapsedMs     int64
 	Headers       map[string]string
 }
 
@@ -42,7 +48,58 @@ func NewRequest(url, method, payload string, headers map[string]string) (*Reques
 	return req, nil
 }
 
-// RunTest executes the tet request and returns a test response
-func RunTest(req *Request) (*Response, error) {
-	return nil, errors.New("not implemented")
+// CreateHTTPRequest from a test request
+func (req *Request) CreateHTTPRequest() (*http.Request, error) {
+	buffer := bytes.NewBufferString(req.payload)
+	return http.NewRequest(req.method, req.url, buffer)
+}
+
+// TestRunner that runs tests
+type TestRunner struct {
+	client *http.Client
+}
+
+// NewTestRunner creates a new test runner
+func NewTestRunner() *TestRunner {
+	return &TestRunner{client: &http.Client{}}
+}
+
+// ExecuteRequest executes the test request and returns a test response
+func (runner *TestRunner) ExecuteRequest(req *Request) (*Response, error) {
+	if req == nil {
+		return nil, errors.New("request must be provided")
+	}
+
+	httpRequest, err := req.CreateHTTPRequest()
+
+	if err != nil {
+		return nil, err
+	}
+
+	start := time.Now().UnixNano() * 1000000
+
+	res, err := runner.client.Do(httpRequest)
+
+	end := time.Now().UnixNano() * 1000000
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer res.Body.Close()
+
+	respBytes, err := ioutil.ReadAll(res.Body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	testResponse := &Response{
+		StatusCode:    res.StatusCode,
+		StatusMessage: res.Status,
+		ElapsedMs:     end - start,
+		Data:          string(respBytes),
+	}
+
+	return testResponse, nil
 }
