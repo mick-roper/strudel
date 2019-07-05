@@ -35,7 +35,7 @@ func (runner *TestRunner) Execute(def *TestDefinition) (*TestResult, error) {
 	resp, err := runner.client.Do(req)
 
 	end := time.Now().UnixNano() * 1000000
-	elaspedMs = end - start
+	elapsedMs := end - start
 
 	if err != nil {
 		return nil, err
