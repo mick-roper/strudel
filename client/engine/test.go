@@ -17,3 +17,11 @@ func (def *TestDefinition) CreateHTTPRequest() (*http.Request, error) {
 	data := bytes.NewBufferString(def.payload)
 	return http.NewRequest(def.method, def.url, data)
 }
+
+// TestResult of a running TestDefinition
+type TestResult struct {
+	StatusCode    int
+	StatusMessage string
+	Payload       string
+	ElapsedMs     int
+}
